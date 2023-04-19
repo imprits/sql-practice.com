@@ -38,11 +38,12 @@ from patients;
 
 
 --Show first name, last name, and the full province name of each patient.
-select a.first_name
-,a.last_name
-,r.province_name
-from patients a
-join provinces r on using(province_id);
+select
+  first_name,
+  last_name,
+  province_name
+from patients
+  jOIN province_names on province_names.province_id = patients.province_id;
 
 
 --Show how many patients have a birth_date with 2010 as the birth year.
