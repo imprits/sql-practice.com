@@ -51,13 +51,18 @@ select count(distinct patient_id)
 from patients
 where year(birth_date)=2010;
 
+Alternate Soln 
+           
+Select count(*) as total_patients
+from patients
+where year(birth_date) = 2010;
+
 
 --Show the first_name, last_name, and height of the patient with the greatest height.
 select first_name
 ,last_name
 ,max(height)
 from patients;
-
 
 --Show all columns for patients who have one of the following patient_ids: 1,45,534,879,1000.
 select *
@@ -69,6 +74,11 @@ where patient_id in (1,45,534,879,1000);
 select count(patient_id)
 from admissions;
 
+Alternate Soln
+
+SELECT COUNT(*) AS total_admissions
+FROM admissions;
+
 
 --Show all the columns from admissions where the patient was admitted and discharged on the same day.
 select *
@@ -76,17 +86,30 @@ from admissions
 where admission_date=discharge_date;
 
 
---Show the total number of admissions for patient_id 573.
+--Show the total number of admissions for patient_id 579.
 select patient_id
 ,count(patient_id)
 from admissions
-where patient_id=573;
+where patient_id=579;
+
+Alternate Soln
+select
+  patient_id,
+  count(*) AS total_admissions
+from admissions
+where patient_id = 579;
 
 
 --Based on the cities that our patients live in, show unique cities that are in province_id 'NS'.
 select distinct(city)
 from patients
 where province_id='NS';
+
+Alternate Soln 
+
+SELECT DISTINCT(city) AS unique_cities
+FROM patients
+WHERE province_id = 'NS';
 
 
 --Write a query to find the first_name, last name and birth date of patients who have height more than 160 and weight more than 70.
@@ -103,3 +126,26 @@ select first_name
 ,allergies
 from patients
 where city='Hamilton' and allergies<>'NKA';
+
+Alternate Soln
+
+select
+  first_name,
+  last_name,
+  allergies
+from patients
+where
+  city = 'Hamilton'
+  and allergies is not null
+
+--Based on cities where our patient lives in, write a query to display the list of unique city starting with a vowel (a, e, i, o, u). 
+Show the result order in ascending by city.
+select distinct city
+from patients
+where
+  city like 'a%'
+  or city like 'e%'
+  or city like 'i%'
+  or city like 'o%'
+  or city like 'u%'
+order by city
